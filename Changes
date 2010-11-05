@@ -1,0 +1,85 @@
+Revision history for Perl extension FabForce::DBDesigner4.
+
+0.304  Sun Nov 22 13:58:31 2009
+    + fix bug in META.yml
+
+0.303  Sun Nov 22 13:30:22 2009
+    + bumped version of FF::DBD::SQL, as the PAUSE indexer said, that a
+      previous version of FF::DBD had a higher version of FF::DBD::SQL included
+
+0.302  Fri Aug 14 10:39:12 2009
+    + added Perl::Critic tests for *::SQL::Utils and *::SQL::Mysql
+    + Version bumps for changed files
+
+0.301  Wed Aug 12 12:55:23 2009
+    + reorder MANIFEST
+    - bugfix: take care of params for datatypes
+    + add tests for bugfix
+    + change license information to be more specific
+
+0.3    Wed Aug 12 10:44:52 2009
+    + add sql_options when creating sql. currently only mysql backend supports that
+
+0.201  Wed May 06 14:29:21 2009
+    + add test for mysql and drop tables
+    + minor bugfix in mysql module
+
+0.2  Tue May 05 16:55:12 2009
+    + remove sql parsing functions
+    + remove xml writing functions
+    + add mysql specific module
+    + update documentation
+
+0.14 Tue Jan 06 17:30:54 2009
+    + bugfix in XML parsing: add default value even it is "0"
+    + do not "AUTOINCREMENT" on non-numeric columns
+    + add tests for new functionality
+
+0.13 Sat Jan 03 10:55:37 2009
+    + add parameter for DB type to support different SQL dialects
+       currently supports:
+        * mysql
+        * other
+    + add test for mysql
+
+0.12 Tue May 13 12:14:22 2008
+    + added check for env variable RELEASE_TESTING in 98_perl_critic.t
+
+0.10 Sat Jul 28 10:45:22 2007
+    - bugfix: removed wrong prereq in 98_perl_critic.t
+
+0.09 Wed Jul 25 11:30:31 2007
+    + added test: 98_perl_critic.t
+    + changed: adopted some Perl::Critic metrics
+    Table.pm:
+      - bugfix: unique column names in column_names
+    XML.pm:
+      + major code cleanup: removed all the nasty global vars
+      - removed use of Data::Dumper
+    
+0.08  Tue Jul 10 15:36:22 2007
+    SQL.pm:   
+      + code cleanup
+    Table.pm: 
+      + some workarounds for missing details in xml information
+      + column_names()
+      + code cleanup
+      + get_foreign_keys()
+
+0.06  Tue Nov 21 22:10:24 2006
+    Tests improved
+
+0.04  Mon Oct 30 17:48:23 2006
+    DBDesigner4.pm: 
+      + getSQL() added: get the CREATE statements
+    SQL.pm:
+      + getSQL() added: get the CREATE statements
+        
+0.03  Fri Jan 27 04:36:22 2006
+    - fixed one minor bug
+    - typo in documentation
+
+0.01  Mon Aug  8 14:47:10 2005
+	- original version; created by h2xs 1.23 with options
+		-XA -b 5.6.1 -n FabForce::DBDesigner4
+
