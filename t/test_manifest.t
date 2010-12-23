@@ -6,4 +6,10 @@ use Test::More;
 
 eval "use Test::CheckManifest 1.0";
 plan skip_all => "Test::CheckManifest 1.0 required" if $@;    
-ok_manifest({filter => [qr/\.svn/]});
+ok_manifest({
+    exclude => [
+        '/dist.ini',
+        '/LICENSE',
+        '/xt/'
+    ]
+});

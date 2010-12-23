@@ -6,7 +6,7 @@ use warnings;
 use XML::Twig;
 use FabForce::DBDesigner4::Table qw(:const);
 
-our $VERSION     = '0.1';
+our $VERSION     = '0.2';
 
 sub new{
     my ($class) = @_;
@@ -74,6 +74,10 @@ sub _column{
     
     if( $datatype !~ m!INT! ){
         $autoinc = "";
+    }
+    
+    if ( $typeAttr ) {
+        $typeAttr =~ s/\\a/'/g;
     }
 
     $datatype .= $typeAttr;

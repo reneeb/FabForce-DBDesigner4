@@ -1,5 +1,12 @@
 Revision history for Perl extension FabForce::DBDesigner4.
 
+0.306  Sun Nov 28 17:12:13 2010
+    + fix manifest check
+
+0.305  Fri Nov 26 17:45:32 2010
+    + \a in column attributes have to be substituted with '
+    + move to Dist::Zilla
+
 0.304  Sun Nov 22 13:58:31 2009
     + fix bug in META.yml
 
