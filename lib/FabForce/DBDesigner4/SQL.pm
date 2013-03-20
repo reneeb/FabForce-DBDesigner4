@@ -8,9 +8,10 @@ use IO::File;
 
 use FabForce::DBDesigner4::Table qw(:const);
 use FabForce::DBDesigner4::SQL::Mysql;
+use FabForce::DBDesigner4::SQL::Sqlite;
 use FabForce::DBDesigner4::SQL::Utils qw( get_foreign_keys );
 
-our $VERSION     = 0.7;
+our $VERSION     = 0.8;
 our $ERROR       = 0;
 
 sub new{
@@ -41,11 +42,17 @@ sub getSQL{
     
     my @statements;
     
+    my %types = (
+        mysql  => 'FabForce::DBDesigner4::SQL::Mysql',
+        sqlite => 'FabForce::DBDesigner4::SQL::Sqlite',
+    );
+    
     for my $table(@$structure){
         
-        if( $args->{type} and $args->{type} eq 'mysql' ) {
-            my $drop   = FabForce::DBDesigner4::SQL::Mysql->drop_table( $table, $args->{sql_options} );
-            my $create = FabForce::DBDesigner4::SQL::Mysql->create_table( $table, $args->{sql_options} );
+        if( $args->{type} and exists $types{ $args->{type} } ) {
+            my $name   = $types{ $args->{type} };
+            my $drop   = $name->drop_table( $table, $args->{sql_options} );
+            my $create = $name->create_table( $table, $args->{sql_options} );
             
             push @statements, $drop if $args->{drop_tables};
             push @statements, $create;
@@ -84,16 +91,25 @@ sub getSQL{
 
 1;
 
-__END__
+
+
 =pod
 
 =head1 NAME
 
-FabForce::DBDesigner4::XML - parse XML file
+FabForce::DBDesigner4::SQL
+
+=head1 VERSION
+
+version 0.31
 
 =head1 SYNOPSIS
 
 =head1 DESCRIPTION
+
+=head1 NAME
+
+FabForce::DBDesigner4::XML - parse XML file
 
 =head1 METHODS
 
@@ -114,4 +130,19 @@ Copyright (C) 2005 - 2009 by Renee Baecker
 This program is free software; you can redistribute it and/or
 modify it under the terms of the Artistic License version 2.0.
 
+=head1 AUTHOR
+
+Renee Baecker <module@renee-baecker.de>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Renee Baecker.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
+
 =cut
+
+
+__END__

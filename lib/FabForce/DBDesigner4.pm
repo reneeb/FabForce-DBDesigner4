@@ -1,12 +1,14 @@
 package FabForce::DBDesigner4;
 
+# ABSTRACT:  Parse/Analyse XML-Files created by DBDesigner 4 (FabForce)
+
 use strict;
 use warnings;
 use Carp;
 use FabForce::DBDesigner4::XML;
 use FabForce::DBDesigner4::SQL;
 
-our $VERSION     = '0.307';
+our $VERSION     = '0.32';
 
 sub new{
   my ($class,%args) = @_;
@@ -64,10 +66,6 @@ sub getSQL{
 
 __END__
 
-
-=head1 NAME
-
-FabForce::DBDesigner4 - Parse/Analyse XML-Files created by DBDesigner 4 (FabForce)
 
 =head1 SYNOPSIS
 
@@ -206,18 +204,5 @@ bugreports or comments on this module.
 =head1 SEE ALSO
 
   XML::Twig and IO::File
-
-=head1 AUTHOR
-
-Renee Baecker, E<lt>module@renee-baecker.deE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2005 - 2009 by Renee Baecker
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the Artistic License version 2.0.
-
-These conditions apply for all files in this package.
 
 =cut

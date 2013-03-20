@@ -17,11 +17,13 @@ t/mysql_engine_charset.t
 t/test_pod_coverage.t
 t/test_pod.t
 t/test_manifest.t
+t/sqlite.t
 
 t/test.xml
 t/test2.xml
 t/test3.xml
 t/test4.xml
+t/test5.xml
 
 t/data/identifying_1_to_1_relationship.xml
 t/data/identifying_1_to_n_relationship.xml
@@ -33,6 +35,7 @@ lib/FabForce/DBDesigner4.pm
 lib/FabForce/DBDesigner4/XML.pm
 lib/FabForce/DBDesigner4/SQL.pm
 lib/FabForce/DBDesigner4/SQL/Mysql.pm
+lib/FabForce/DBDesigner4/SQL/Sqlite.pm
 lib/FabForce/DBDesigner4/SQL/Utils.pm
 lib/FabForce/DBDesigner4/Table.pm
 

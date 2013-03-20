@@ -1,9 +1,9 @@
-package FabForce::DBDesigner4::SQL::Mysql;
+package FabForce::DBDesigner4::SQL::Sqlite;
 
 use strict;
 use warnings;
 
-our $VERSION     = '0.02';
+our $VERSION     = '0.01';
 
 sub create_table {
     my ($class,$table,$options) = @_;
@@ -14,7 +14,8 @@ sub create_table {
     my $cols_string =  join(",\n  ",@columns);
        $cols_string =~ s!\s+\z!!;
     
-    $cols_string =~ s!AUTOINCREMENT!AUTO_INCREMENT!g;
+    my $has_autoinc = $cols_string =~ m!AUTOINCREMENT!;
+    $cols_string =~ s!AUTOINCREMENT!PRIMARY KEY!g;
     
     my $options_string = "";
     
@@ -32,7 +33,7 @@ sub create_table {
     
     my $stmt = "CREATE TABLE `$tablename` (\n  $cols_string,\n  ";
     $stmt   .= "PRIMARY KEY(" . join( ",", $table->key ) . "),\n  " 
-        if scalar( $table->key ) > 0;
+        if scalar( $table->key ) > 1 or ( !$has_autoinc and scalar $table->key );
         
     $stmt    =~ s!,\n\s\s\z!\n!;
     
@@ -56,7 +57,7 @@ sub drop_table {
 
 =head1 NAME
 
-FabForce::DBDesigner4::SQL::Mysql
+FabForce::DBDesigner4::SQL::Sqlite
 
 =head1 VERSION
 
@@ -64,7 +65,7 @@ version 0.31
 
 =head1 SYNOPSIS
 
-  my $create_stmt = FabForce::DBDesigner4::SQL::Mysql->create_table( $fabforce_table_object );
+  my $create_stmt = FabForce::DBDesigner4::SQL::Sqlite->create_table( $fabforce_table_object );
 
 =head1 DESCRIPTION
 
@@ -73,13 +74,13 @@ for each system.
 
 =head1 NAME
 
-FabForce::DBDesigner4::SQL::Mysql - create sql with mysql specific syntax
+FabForce::DBDesigner4::SQL::Sqlite - create sql with Sqlite specific syntax
 
 =head1 METHODS
 
 =head2 create_table
 
-  my $create_stmt = FabForce::DBDesigner4::SQL::Mysql->create_table( $fabforce_table_object );
+  my $create_stmt = FabForce::DBDesigner4::SQL::Sqlite->create_table( $fabforce_table_object );
 
 Things it does:
 

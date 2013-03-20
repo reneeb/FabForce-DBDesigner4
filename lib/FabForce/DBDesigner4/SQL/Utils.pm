@@ -33,11 +33,17 @@ sub get_foreign_keys{
 
 1;
 
-__END__
+
+
+=pod
 
 =head1 NAME
 
-FabForce::DBDesigner4::SQL::Utils - some utility functions for SQL generation
+FabForce::DBDesigner4::SQL::Utils
+
+=head1 VERSION
+
+version 0.31
 
 =head1 SYNOPSIS
 
@@ -47,6 +53,10 @@ FabForce::DBDesigner4::SQL::Utils - some utility functions for SQL generation
 
 As each database system has its own syntax, it is important to provide functions
 for each system.
+
+=head1 NAME
+
+FabForce::DBDesigner4::SQL::Utils - some utility functions for SQL generation
 
 =head1 METHODS
 
@@ -64,3 +74,21 @@ This program is free software; you can redistribute it and/or
 modify it under the terms of the Artistic License version 2.0.
 
 =cut
+
+=head1 AUTHOR
+
+Renee Baecker <module@renee-baecker.de>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is Copyright (c) 2010 by Renee Baecker.
+
+This is free software, licensed under:
+
+  The Artistic License 2.0
+
+=cut
+
+
+__END__
+
