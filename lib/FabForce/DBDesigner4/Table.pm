@@ -24,7 +24,7 @@ use constant {
     NON_IDENTIFYING_1_TO_1 => 5,
 };
 
-our $VERSION     = '0.05';
+our $VERSION     = '0.06';
 
 sub new{
     my ($class,%args) = @_;
@@ -32,20 +32,22 @@ sub new{
     
     bless $self,$class;
     
-    $self->{COORDS}    = [];
-    $self->{COLUMNS}   = [];
-    $self->{NAME}      = '';
-    $self->{RELATIONS} = [];
-    $self->{KEY}       = [];
-    $self->{ATTRIBUTE} = {};
+    $self->{COORDS}          = [];
+    $self->{COLUMNS}         = [];
+    $self->{COLUMNS_DETAILS} = [];
+    $self->{NAME}            = '';
+    $self->{RELATIONS}       = [];
+    $self->{KEY}             = [];
+    $self->{ATTRIBUTE}       = {};
   
-    $self->{COORDS}    = $args{-coords}    if(_checkArg('coords'   , $args{-coords}   ));
-    $self->{COLUMNS}   = $args{-columns}   if(_checkArg('columns'  , $args{-columns}  ));
-    $self->{NAME}      = $args{-name}      if(_checkArg('name'     , $args{-name}     ));
-    $self->{RELATIONS} = $args{-relations} if(_checkArg('relations', $args{-relations}));
-    $self->{KEY}       = $args{-key}       if(_checkArg('key'      , $args{-key}      ));
-    $self->{INDEX}     = $args{-index}     if(_checkArg('index'    , $args{-index}    ));
-    $self->{ATTRIBUTE} = $args{-attr}      if(_checkArg('attribute', $args{-attr}     ));
+    $self->{COORDS}          = $args{-coords}         if(_checkArg('coords'        , $args{-coords}        ));
+    $self->{COLUMNS}         = $args{-columns}        if(_checkArg('columns'       , $args{-columns}       ));
+    $self->{COLUMNS_DETAILS} = $args{-column_details} if(_checkArg('columnsdetails', $args{-columnsdetails}));
+    $self->{NAME}            = $args{-name}           if(_checkArg('name'          , $args{-name}          ));
+    $self->{RELATIONS}       = $args{-relations}      if(_checkArg('relations'     , $args{-relations}     ));
+    $self->{KEY}             = $args{-key}            if(_checkArg('key'           , $args{-key}           ));
+    $self->{INDEX}           = $args{-index}          if(_checkArg('index'         , $args{-index}         ));
+    $self->{ATTRIBUTE}       = $args{-attr}           if(_checkArg('attribute'     , $args{-attr}          ));
     
     return $self;
 }# new
@@ -73,6 +75,16 @@ sub columns{
     $self->{COLUMNS} = $ar;
     return 1;
 }# columns
+
+sub column_details {
+    my ($self, $details) = @_;
+
+    if ( $details && _checkArg('columndetails', $details) ) {
+        $self->{COLUMNS_DETAILS} = $details;
+    }
+
+    return $self->{COLUMNS_DETAILS};
+}
 
 sub column_names{
     my ($self) = @_;
@@ -212,6 +224,8 @@ sub _checkArg{
     $return = 1 if($type eq 'columns'
                    && ref($value) eq 'ARRAY'
                    && !(!grep{ref($_) eq 'HASH'}@$value));
+
+    $return = 1 if( $type eq 'columndetails' && ref($value) eq 'ARRAY' );
                    
     $return = 1 if($type eq 'name' 
                    && ref(\$value) eq 'SCALAR');
@@ -331,6 +345,8 @@ Methods of the table-objects
 =head2 new
 
 =head2 tableIndex
+
+=head2 column_details
 
 =head2 column_names
 

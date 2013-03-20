@@ -5,6 +5,7 @@ README
 
 t/98_perl_critic.t
 t/autoincrement.t
+t/column_details.t
 t/constants.t
 t/datatype_params.t
 t/default.t

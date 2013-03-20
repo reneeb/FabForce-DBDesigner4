@@ -1,12 +1,14 @@
 package FabForce::DBDesigner4::XML;
 
+# ABSTRACT: parse XML file
+
 use 5.006001;
 use strict;
 use warnings;
 use XML::Twig;
 use FabForce::DBDesigner4::Table qw(:const);
 
-our $VERSION     = '0.2';
+our $VERSION     = '0.3';
 
 sub new{
     my ($class) = @_;
@@ -40,6 +42,7 @@ sub parsefile{
     
     for my $table( $self->_all_tables ){
         $table->columns( $self->_table_columns( $table->name ) );
+        $table->column_details( $self->_table_column_details( $table->name ) );
         $table->key( $self->_key( $table->name ) );
     }
 
@@ -71,6 +74,8 @@ sub _column{
     my $notnull        = $col->{att}->{NotNull} ? 'NOT NULL' : '';
     my $default        = $col->{att}->{DefaultValue};
     my $autoinc        = $col->{att}->{AutoInc} ? 'AUTOINCREMENT' : '';
+
+    $col->{att}->{DataType} = $datatype;
     
     if( $datatype !~ m!INT! ){
         $autoinc = "";
@@ -94,6 +99,7 @@ sub _column{
     $info  =~ s!\s+\z!!;
     
     $self->_add_columns( $parent_table, {$name => [$datatype,$info]} );
+    $self->_add_column_details( $parent_table, $col->{att} );
     $self->_key( $parent_table, $name ) if $col->{att}->{PrimaryKey};
 }# _column
 
@@ -154,6 +160,16 @@ sub _table_columns{
 sub _add_columns{
     my ($self,$table,$value) = @_;
     push @{ $self->{_COLUMNS_}->{$table} }, $value if defined $value;
+}
+
+sub _table_column_details {
+    my ($self, $name) = @_;
+    return $self->{_COLUMN_DETAILS_}->{$name};
+}
+
+sub _add_column_details {
+    my ($self, $table, $details) = @_;
+    push @{ $self->{_COLUMN_DETAILS_}->{$table} }, $details if defined $details;
 }
 
 sub _reset_relationsid{
@@ -263,10 +279,6 @@ sub _datatypes{
 __END__
 =pod
 
-=head1 NAME
-
-FabForce::DBDesigner4::XML - parse XML file
-
 =head1 SYNOPSIS
 
 =head1 DESCRIPTION
@@ -279,15 +291,5 @@ FabForce::DBDesigner4::XML - parse XML file
 
 =head2 parsefile
 
-=head1 AUTHOR
-
-Renee Baecker, E<lt>module@renee-baecker.deE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2005 - 2009 by Renee Baecker
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the Artistic License version 2.0.
 
 =cut
