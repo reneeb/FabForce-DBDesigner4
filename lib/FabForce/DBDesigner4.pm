@@ -8,7 +8,7 @@ use Carp;
 use FabForce::DBDesigner4::XML;
 use FabForce::DBDesigner4::SQL;
 
-our $VERSION     = '0.32';
+our $VERSION     = '0.33';
 
 sub new{
   my ($class,%args) = @_;
@@ -191,6 +191,8 @@ Methods of the table-objects
   # get the primary key
   print "the primary key contains these columns:\n";
   print $_,"\n" for($table->key());
+
+=head2 column_details
 
 =head1 DEPENDENCIES
 

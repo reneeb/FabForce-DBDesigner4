@@ -24,7 +24,7 @@ use constant {
     NON_IDENTIFYING_1_TO_1 => 5,
 };
 
-our $VERSION     = '0.06';
+our $VERSION     = '0.07';
 
 sub new{
     my ($class,%args) = @_;
@@ -358,16 +358,5 @@ Methods of the table-objects
   my %foreign_keys = $table->get_foreign_keys;
   use Data::Dumper;
   print Dumper \%foreign_keys;
-
-=head1 AUTHOR
-
-Renee Baecker, E<lt>module@renee-baecker.deE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2005 - 2009 by Renee Baecker
-
-This program is free software; you can redistribute it and/or
-modify it under the terms of the Artistic License version 2.0.
 
 =cut
