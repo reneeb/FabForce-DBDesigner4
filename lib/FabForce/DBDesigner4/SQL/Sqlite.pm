@@ -7,18 +7,18 @@ our $VERSION     = '0.01';
 
 sub create_table {
     my ($class,$table,$options) = @_;
-        
+
     my @columns   = $table->columns();
     my $tablename = $table->name();
-    
-    my $cols_string =  join(",\n  ",@columns);
-       $cols_string =~ s!\s+\z!!;
-    
-    my $has_autoinc = $cols_string =~ m!AUTOINCREMENT!;
-    $cols_string =~ s!AUTOINCREMENT!PRIMARY KEY!g;
-    
-    my $options_string = "";
-    
+
+    my $cols_string =  join ",\n  ", @columns;
+       $cols_string =~ s!\s+\z!!mxs;
+
+    my $has_autoinc = $cols_string =~ m!AUTOINCREMENT!xsm;
+    $cols_string =~ s!AUTOINCREMENT!PRIMARY KEY!xsgm;
+
+    my $options_string = q~~;
+
     if ( $options and ref $options ) {
         my @options;
         if( $options->{engine} ) {
@@ -28,25 +28,27 @@ sub create_table {
             push @options, 'DEFAULT CHARSET=' . $options->{charset};
         }
 
-        $options_string = join ' ', @options;
+        $options_string = join q~ ~, @options;
     }
-    
+
     my $stmt = "CREATE TABLE `$tablename` (\n  $cols_string,\n  ";
-    $stmt   .= "PRIMARY KEY(" . join( ",", $table->key ) . "),\n  " 
+    $stmt   .= 'PRIMARY KEY(' . join( ',', $table->key ) . "),\n  " 
         if scalar( $table->key ) > 1 or ( !$has_autoinc and scalar $table->key );
-        
-    $stmt    =~ s!,\n\s\s\z!\n!;
-    
+
+    $stmt    =~ s!,\n\s\s\z!\n!xsm;
+
     $stmt   .= ")$options_string;\n\n";
+
+    return $stmt;
 }
 
 sub drop_table {
     my ($class,$table,$options) = @_;
-    
+
     my $name = $table->name;
     my $stmt = qq~DROP TABLE IF EXISTS `$name`;\n\n~;
-    
-    $stmt;
+
+    return $stmt;
 }
 
 1;
@@ -88,7 +90,7 @@ Things it does:
 
 =item * Use AUTO_INCREMENT instead of AUTOINCREMENT
 
-=item * don't use foreign keys
+=item * does not use foreign keys
 
 =back
 
