@@ -10,6 +10,8 @@ ok_manifest({
     exclude => [
         '/dist.ini',
         '/LICENSE',
-        '/xt/'
+        '/xt/',
+        '/.git',
+        '/.build',
     ]
 });
